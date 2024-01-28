@@ -1,3 +1,4 @@
+const { populate } = require('../models/hashtags');
 const Tweet = require('../models/tweet');
 
 class TweetRepository {
@@ -30,9 +31,12 @@ class TweetRepository {
 
   async getWithComments(id) {
     try {
-      const tweet = await Tweet.findById(id)
-        .populate({ path: "comments" })
+      const tweet = await Tweet.findById(id).populate({
+        path:"comments",
+        populate: {path:"comments"}
+      })
         .lean();
+        console.log(tweet);
       return tweet;
     } catch (error) {
       console.log(error);

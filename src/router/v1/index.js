@@ -1,7 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const {create} = require('../../controllers/tweet-controller');
+const tweetController = require('../../controllers/tweet-controller');
+const commentController = require('../../controllers/comment-controller');
 
-router.post("/tweet",create);
+router.get("/tweetcomment/:id",tweetController.getWithComments);
+
+router.post("/tweet", tweetController.create);
+router.post("/comment", commentController.create);
 
 module.exports = router;

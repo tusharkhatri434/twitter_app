@@ -18,6 +18,25 @@ const create = async (req,res)=>{
     }
 }
 
+const getWithComments = async (req,res)=>{
+    try {
+        console.log(req.params.id);
+        const data = await tweetService.getWithComments(req.params.id);
+        return res.status(200).json({
+            success:true,
+            response:data,
+            error:{},
+        })
+    } catch (error) {
+        res.status(500).json({
+            success:false,
+            response:{},
+            err:error,
+        })
+    }
+}
+
 module.exports = {
-    create
+    create,
+    getWithComments
 }
